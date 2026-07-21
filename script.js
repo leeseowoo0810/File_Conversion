@@ -40,6 +40,10 @@ csvFile.addEventListener("change", function () {
 
         try {
 
+            if (typeof XLSX === "undefined") {
+                throw new Error("엑셀/한셀 분석 라이브러리(SheetJS)가 로드되지 않았습니다. 페이지를 새로고침하거나 네트워크 연결을 확인해 주세요.");
+            }
+
             const data = new Uint8Array(e.target.result);
 
             const workbook = XLSX.read(data, {
@@ -70,7 +74,7 @@ csvFile.addEventListener("change", function () {
 
             console.error(err);
 
-            alert("한셀 파일을 읽을 수 없습니다.");
+            alert("한셀 파일을 읽을 수 없습니다.\n오류 내용: " + err.message);
 
         }
 
